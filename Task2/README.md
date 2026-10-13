@@ -1,19 +1,20 @@
-# Task 03: Decision Tree Classifier on the Bank Marketing Dataset
+# Task 02: Data Cleaning and EDA on the Titanic Dataset
 
-Built and tuned a decision tree classifier to predict whether a bank client will subscribe to a term deposit, using Python, pandas, scikit-learn, matplotlib and seaborn.
+Cleaned the Titanic dataset and explored the relationships between variables to find patterns in passenger survival, using Python, pandas, matplotlib and seaborn.
 
-- **Source:** UCI Machine Learning Repository, Bank Marketing (https://archive.ics.uci.edu/dataset/222/bank+marketing), Moro, Rita and Cortez (2014), CC BY 4.0
-- **Files:** `Task3.ipynb`, `charts/` (5 charts), `bank-full.csv`
+- **Source:** Kaggle, Titanic: Machine Learning from Disaster (https://www.kaggle.com/c/titanic/data)
+- **Files:** `Task2.ipynb`, `charts/` (9 charts), `train.csv`
 
-## Approach
-- 45,211 clients, 16 features, no missing values; only 11.7% subscribed (imbalanced classes)
-- Removed `duration` to avoid data leakage (call length is only known after the outcome)
-- One-hot encoded categorical columns; stratified 80/20 train/test split
-- An unrestricted tree overfit (100% train accuracy, ROC AUC 0.61 on test)
-- Tuned `max_depth` and `min_samples_leaf` with 5-fold GridSearchCV and balanced class weights
+## Cleaning
+- Age (177 missing): filled with the median age of each class and sex group
+- Embarked (2 missing): filled with the most common port (S)
+- Cabin (77% missing): converted to a `HasCabin` flag and dropped the original column
+- No duplicate rows; high fares kept as genuine first-class tickets
 
-## Results (test set)
-- ROC AUC 0.78, recall 60%, precision 33%, accuracy 81%
-- Finds 632 of the 1,058 clients who subscribed
-- Top drivers: previous campaign success, contact type, day of contact, housing loan, balance
-- With `duration` included, ROC AUC rises to 0.90, which shows why it must be excluded
+## Key findings
+- Overall survival was 38.4%
+- 74.2% of women survived versus 18.9% of men
+- Survival fell by class: 63.0% (1st), 47.3% (2nd), 24.2% (3rd)
+- Children had the best survival rate (58%), seniors the worst (23%)
+- Passengers with family (2 to 4 members) survived more than those alone
+- Higher fares and recorded cabins went with higher survival, linked to class
